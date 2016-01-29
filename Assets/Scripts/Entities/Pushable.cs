@@ -16,7 +16,19 @@ public class Pushable : MonoBehaviour {
 	
 	}
 
-    void OnTriggerStay2D(Collider2D player)
+    void OnTriggerStay2D(Collider2D col)
+    {
+        switch (col.tag)
+        {
+            case "Player":
+                playerPush(col);
+                break;
+            default:
+                break;
+        }
+    }
+
+    void playerPush(Collider2D player)
     {
         Vector3 delta = initPos - player.transform.position;
         float distance = delta.magnitude;
@@ -36,15 +48,6 @@ public class Pushable : MonoBehaviour {
         float distance2 = MaxPush - distance;
 
         transform.position = initPos + direction * distance2;
-
-
-        //if (transform.position == initPos)
-        //{
-        //    Debug.Log("delta:" + delta);
-        //    Debug.Log("dis:" + distance);
-        //    Debug.Log("dir:" + direction);
-        //    Debug.Log("dis2:" + distance2);
-        //}
     }
 
     void OnTriggerExit2D(Collider2D player)
