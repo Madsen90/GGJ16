@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Player : MonoBehaviour
 {
+    public bool hasPushObj = false;
     public float Speed;
 
 	// Use this for initialization

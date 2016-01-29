@@ -21,6 +21,9 @@ public class NewBehaviourScript : MonoBehaviour
         switch (col.tag)
         {
             case "Player":
+                GameObject player = GameObject.FindWithTag("Player");
+                player.GetComponent<Player>().hasPushObj = true;
+                Destroy(gameObject);
                 break;
             default:
                 break;
