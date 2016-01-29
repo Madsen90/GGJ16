@@ -49,6 +49,6 @@ public class Pushable : MonoBehaviour {
 
     void OnTriggerExit2D(Collider2D player)
     {
-       // transform.position = initPos;
+       //    transform.position = initPos;
     }
 }
