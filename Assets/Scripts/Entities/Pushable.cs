@@ -32,7 +32,7 @@ public class Pushable : MonoBehaviour
         if (!_player.GetComponent<Player>().HasPushObj)
         {
             Transform pushObj = GameObject.FindWithTag("PushObj").transform;
-            if (ObjectInRange(pushObj,1f))
+            if (pushObj != null && ObjectInRange(pushObj, 1f))
             {
                 Push(pushObj, 1f);
             }
@@ -41,7 +41,10 @@ public class Pushable : MonoBehaviour
         if (!_player.GetComponent<Player>().HasFreezeObj)
         {
             GameObject freezeObj = GameObject.FindWithTag("FreezeObj");
-            Freeze(freezeObj.transform);
+            if (freezeObj != null)
+            {
+                Freeze(freezeObj.transform);
+            }
         }
         else
         {
