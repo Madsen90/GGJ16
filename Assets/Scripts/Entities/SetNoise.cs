@@ -11,9 +11,9 @@ public class SetNoise : MonoBehaviour
     {
         source = GameObject.Find("Camera").GetComponents<AudioSource>()[1];
     }
-    
-    void Update ()
+
+    void OnTriggerEnter()
     {
-        source.volume = VolumeTarget;
+        source.volume = Mathf.Max(source.volume, VolumeTarget);
     }
 }
