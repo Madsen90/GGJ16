@@ -1,14 +1,16 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+
+using UnityEngine;
 using System.Collections;
 
 public class Key : MonoBehaviour
 {
-    public Door Door;
+    public List<Door> Doors;
     float t;
 
     void Awake()
     {
-        Door.RemainingKeys++;
+        Doors.ForEach(door => door.RemainingKeys++);
         t = Random.Range(0, Mathf.PI * 2);
     }
 
@@ -16,7 +18,7 @@ public class Key : MonoBehaviour
     {
         if (col.tag == "Player")
         {
-            Door.RemainingKeys--;
+            Doors.ForEach(door => door.RemainingKeys--);
             Destroy(gameObject);
         }
     }

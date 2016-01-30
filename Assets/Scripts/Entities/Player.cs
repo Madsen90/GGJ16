@@ -16,7 +16,6 @@ public class Player : MonoBehaviour
     private const float Magic = 0.06f;
 
     private Vector2 extents;
-    private float cornerRadius;
     private float rightSideLength, rightMarginSideLength;
     private float topSideLength, topMarginSideLength;
 
@@ -56,7 +55,6 @@ public class Player : MonoBehaviour
     void Start()
     {
         extents = GetComponent<Collider2D>().bounds.extents;
-        cornerRadius = ((Vector2)transform.position - SouthEast).magnitude;
 
         topSideLength = extents.x + Magic;
         topMarginSideLength = extents.x - Magic;
