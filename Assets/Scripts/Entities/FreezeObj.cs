@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PushObj : MonoBehaviour
-{
+public class FreezeObj : MonoBehaviour {
     public bool HasBeenLaidDown;
 
     void OnTriggerEnter2D(Collider2D col)
@@ -11,7 +10,7 @@ public class PushObj : MonoBehaviour
         {
             if (!HasBeenLaidDown)
             {
-                col.GetComponent<Player>().HasPushObj = true;
+                col.GetComponent<Player>().HasFreezeObj = true;
                 Destroy(gameObject);
             }
             else

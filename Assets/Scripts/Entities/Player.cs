@@ -3,7 +3,10 @@ using System.Collections;
 
 public class Player : MonoBehaviour
 {
-    public bool hasPushObj = false;
+    public GameObject PushObj; 
+    public GameObject FreezeObj;
+    public bool HasPushObj;
+    public bool HasFreezeObj;
     public float Speed;
 
 	// Use this for initialization
@@ -23,11 +26,21 @@ public class Player : MonoBehaviour
             move += Vector3.up;
         if (Input.GetKey(KeyCode.DownArrow))
             move += Vector3.down;
-        //if(move != Vector3.zero)
-        //{
-        //    Debug.Log("player position:" + transform.position);
 
-        //}
         transform.position += move * Speed * Time.deltaTime;
+
+        if (Input.GetKey(KeyCode.Z) && HasPushObj)
+        {
+            HasPushObj = false;
+            Instantiate(PushObj,transform.position, Quaternion.identity);
+            PushObj.GetComponent<PushObj>().HasBeenLaidDown = true;
+        }
+
+        if (Input.GetKey(KeyCode.X) && HasFreezeObj)
+        {
+            HasFreezeObj = false;
+            Instantiate(FreezeObj, transform.position, Quaternion.identity);
+            FreezeObj.GetComponent<FreezeObj>().HasBeenLaidDown = true;
+        }
     }
 }
