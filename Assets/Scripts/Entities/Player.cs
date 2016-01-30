@@ -63,8 +63,6 @@ public class Player : MonoBehaviour
 
         rightSideLength = extents.y + Magic;
         rightMarginSideLength = extents.y - Magic;
-
-        Debug.Log(String.Format("{0} {1}", topSideLength, rightSideLength));
     }
 
     // Update is called once per frame
@@ -127,7 +125,7 @@ public class Player : MonoBehaviour
             {
                 minDist = r1.distance > r2.distance ? r1.distance : r2.distance;
             }
-            Debug.Log("x " + minDist);
+            
             transform.position += (Vector3)xMove * minDist;
         }
 
@@ -148,7 +146,7 @@ public class Player : MonoBehaviour
             {
                 minDist = r1.distance > r2.distance ? r1.distance : r2.distance;
             }
-            Debug.Log("y " + minDist);
+            
             transform.position += (Vector3)yMove * minDist;
         }
     }
