@@ -37,7 +37,7 @@ public class Pushable : MonoBehaviour
 
         //Debug.Log(String.Format("Limit X: {0}", _limitX));
         //Debug.Log(String.Format("Limit Y: {0}", _limitY));
-        Debug.Log(String.Format("Init: {0}", transform.localPosition));
+
 	}
 	
 	// Update is called once per frame
