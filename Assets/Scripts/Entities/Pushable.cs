@@ -1,57 +1,96 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Random = System.Random;
+using System;
 
 public class Pushable : MonoBehaviour {
-    private Vector3 initPos;
     public float MaxPush;
+    public float FreezeDist;
+    private GameObject _player;
+    private Vector3 _initPos;
+    private float _time = 0;
+    private bool _frozen;
 
 	// Use this for initialization
 	void Start () {
-        initPos = transform.position;
-        Debug.Log(initPos);
+        Debug.Log("start pushable");
+        _player = GameObject.FindWithTag("Player");
+        _initPos = transform.position;
+        Debug.Log(_initPos);
     }
 	
 	// Update is called once per frame
-	void Update () {
-	
+    private void Update () {
+        Push(_player.transform,1f);
+        if (!_player.GetComponent<Player>().HasPushObj)
+        {
+            Transform pushObj = GameObject.FindWithTag("PushObj").transform;
+            if (ObjectInRange(pushObj,2))
+            {
+                Push(pushObj, 2f);
+            }
+
+        }
+        if (!_player.GetComponent<Player>().HasFreezeObj)
+        {
+            GameObject freezeObj = GameObject.FindWithTag("FreezeObj");
+            Freeze(freezeObj.transform);
+
+        }
+        else if (_frozen)
+        {
+            _frozen = false;
+        }
+        MinorMovement();
 	}
 
-    void OnTriggerStay2D(Collider2D col)
+    private bool ObjectInRange(Transform transform, int pushfactor)
     {
-        switch (col.tag)
-        {
-            case "Player":
-                playerPush(col);
-                break;
-            default:
-                break;
-        }
-    }
-
-    void playerPush(Collider2D player)
-    {
-        Vector3 delta = initPos - player.transform.position;
+        Vector3 delta = _initPos - transform.position;
         float distance = delta.magnitude;
 
-        if (distance == 0)
-        {
-            return;
-        }
+        return distance < MaxPush*pushfactor;
 
-        if (distance > MaxPush)
-        {
-            transform.position = initPos;
-            return;
-        }
-
-        Vector3 direction = delta / distance;
-        float distance2 = MaxPush - distance;
-
-        transform.position = initPos + direction * distance2;
     }
 
-    void OnTriggerExit2D(Collider2D player)
+    private void Freeze(Transform col)
     {
-       //    transform.position = initPos;
+        Vector3 delta = transform.position - col.position;
+        float distance = delta.magnitude;
+
+        if (distance < FreezeDist)
+        {
+            _frozen = true;
+        }
+    }
+
+    void Push(Transform col, float pushfactor)
+    {
+        if (!_frozen)
+        {
+            Vector3 delta = _initPos - col.position;
+            float distance = delta.magnitude;
+
+            if (distance > MaxPush*pushfactor)
+            {
+                transform.position = _initPos;
+                return;
+            }
+            Vector3 direction = delta/distance;
+            float distance2 = MaxPush*pushfactor - distance;
+
+            transform.position = _initPos + direction*distance2;
+        }
+    }
+
+    private void MinorMovement()
+    {
+        if (!_frozen)
+        {
+            _time += Time.deltaTime*3;
+            float x = Mathf.Cos(_time*1.7f)*0.43f;
+            float y = Mathf.Sin(_time)*0.43f;
+            transform.position += new Vector3(x, y, 0);
+        }
     }
 }
