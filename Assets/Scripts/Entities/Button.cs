@@ -12,13 +12,18 @@ public class Button : Key
 
     public override void OnTriggerEnter2D(Collider2D col)
     {
-        GetComponent<SpriteRenderer>().sprite = on;
-        Doors.ForEach(door => door.RemainingKeys--);
+        if(col.tag != "Player") { 
+            GetComponent<SpriteRenderer>().sprite = on;
+            Doors.ForEach(door => door.RemainingKeys--);
+        }
     }
 
     public void OnTriggerExit2D(Collider2D col)
     {
-        GetComponent<SpriteRenderer>().sprite = off;
-        Doors.ForEach(door => door.RemainingKeys++);
+        if (col.tag != "Player")
+        {
+            GetComponent<SpriteRenderer>().sprite = off;
+            Doors.ForEach(door => door.RemainingKeys++);
+        }
     }
 }
