@@ -31,10 +31,14 @@ public class Pushable : MonoBehaviour
         Push(_player.transform,0.5f);
         if (!_player.GetComponent<Player>().HasPushObj)
         {
-            Transform pushObj = GameObject.FindWithTag("PushObj").transform;
-            if (pushObj != null && ObjectInRange(pushObj, 1f))
+            GameObject pushObj = GameObject.FindWithTag("PushObj");
+            if (pushObj != null)
             {
-                Push(pushObj, 1f);
+                Transform pushObjTrans = pushObj.transform;
+                if (ObjectInRange(pushObjTrans, 1f))
+                {
+                    Push(pushObjTrans, 1f);
+                }
             }
 
         }

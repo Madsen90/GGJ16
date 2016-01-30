@@ -12,7 +12,6 @@ public class Button : Key
 
     public override void OnTriggerEnter2D(Collider2D col)
     {
-
         GetComponent<SpriteRenderer>().sprite = on;
         Door.RemainingKeys--;
     }
@@ -20,7 +19,6 @@ public class Button : Key
     public void OnTriggerExit2D(Collider2D col)
     {
         GetComponent<SpriteRenderer>().sprite = off;
-
         Door.RemainingKeys++;
     }
 }
