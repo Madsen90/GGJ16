@@ -1,33 +1,32 @@
 ﻿using UnityEngine;
 using System.Collections;
-using Random = System.Random;
-using System;
 
-public class Pushable : MonoBehaviour {
+public class Pushable : MonoBehaviour
+{
+    public float MinorMovementDist;
     public float PushDist;
     public float FreezeDist;
     private GameObject _player;
     private Vector3 _initPos;
-    private float _time = 0;
+    private float _time;
     private bool _frozen;
 
 	// Use this for initialization
 	void Start () {
-        Debug.Log("start pushable");
         _player = GameObject.FindWithTag("Player");
         _initPos = transform.position;
-        Debug.Log(_initPos);
+        _time = Random.Range(0, Mathf.PI * 2);
     }
 	
 	// Update is called once per frame
     private void Update () {
-        Push(_player.transform,1f);
+        Push(_player.transform,0.5f);
         if (!_player.GetComponent<Player>().HasPushObj)
         {
             Transform pushObj = GameObject.FindWithTag("PushObj").transform;
-            if (ObjectInRange(pushObj,2))
+            if (ObjectInRange(pushObj,1f))
             {
-                Push(pushObj, 2f);
+                Push(pushObj, 1f);
             }
 
         }
@@ -35,7 +34,6 @@ public class Pushable : MonoBehaviour {
         {
             GameObject freezeObj = GameObject.FindWithTag("FreezeObj");
             Freeze(freezeObj.transform);
-
         }
         else
         {
@@ -44,7 +42,7 @@ public class Pushable : MonoBehaviour {
         MinorMovement();
 	}
 
-    private bool ObjectInRange(Transform transform, int pushfactor)
+    private bool ObjectInRange(Transform transform, float pushfactor)
     {
         Vector3 delta = _initPos - transform.position;
         float distance = delta.magnitude;
@@ -78,7 +76,6 @@ public class Pushable : MonoBehaviour {
             }
             Vector3 direction = delta/distance;
             float distance2 = PushDist*pushfactor - distance;
-
             transform.position = _initPos + direction*distance2;
         }
     }
@@ -88,8 +85,8 @@ public class Pushable : MonoBehaviour {
         if (!_frozen)
         {
             _time += Time.deltaTime*3;
-            float x = Mathf.Cos(_time*1.7f)*0.43f;
-            float y = Mathf.Sin(_time)*0.43f;
+            float x = Mathf.Cos(_time*1.7f)*0.43f * MinorMovementDist;
+            float y = Mathf.Sin(_time)*0.43f * MinorMovementDist;
             transform.position += new Vector3(x, y, 0);
         }
     }
