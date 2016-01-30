@@ -28,7 +28,7 @@ public class Pushable : MonoBehaviour
 	
 	// Update is called once per frame
     private void Update () {
-        Push(_player.transform,0.75f);
+        Push(_player.transform, 0.75f);
         if (!_player.GetComponent<Player>().HasPushObj)
         {
             GameObject pushObj = GameObject.FindWithTag("PushObj");
@@ -42,6 +42,7 @@ public class Pushable : MonoBehaviour
             }
 
         }
+        MinorMovement();
         if (!_player.GetComponent<Player>().HasFreezeObj)
         {
             GameObject freezeObj = GameObject.FindWithTag("FreezeObj");
@@ -54,7 +55,6 @@ public class Pushable : MonoBehaviour
         {
             _frozen = false;
         }
-        MinorMovement();
 	}
 
     private bool ObjectInRange(Transform transform, float pushfactor)
@@ -118,8 +118,8 @@ public class Pushable : MonoBehaviour
         if (!_frozen)
         {
             _time += Time.deltaTime*3;
-            float x = Mathf.Cos(_time*1.7f)*0.23f * MinorMovementDist;
-            float y = Mathf.Sin(_time)*0.23f * MinorMovementDist;
+            float x = Mathf.Cos(_time*1.7f)*0.43f * MinorMovementDist;
+            float y = Mathf.Sin(_time)*0.43f * MinorMovementDist;
             transform.position += new Vector3(x, y, 0);
         }
     }
