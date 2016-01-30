@@ -4,7 +4,7 @@ using Random = System.Random;
 using System;
 
 public class Pushable : MonoBehaviour {
-    public float MaxPush;
+    public float PushDist;
     public float FreezeDist;
     private GameObject _player;
     private Vector3 _initPos;
@@ -37,7 +37,7 @@ public class Pushable : MonoBehaviour {
             Freeze(freezeObj.transform);
 
         }
-        else if (_frozen)
+        else
         {
             _frozen = false;
         }
@@ -49,7 +49,7 @@ public class Pushable : MonoBehaviour {
         Vector3 delta = _initPos - transform.position;
         float distance = delta.magnitude;
 
-        return distance < MaxPush*pushfactor;
+        return distance < PushDist*pushfactor;
 
     }
 
@@ -71,13 +71,13 @@ public class Pushable : MonoBehaviour {
             Vector3 delta = _initPos - col.position;
             float distance = delta.magnitude;
 
-            if (distance > MaxPush*pushfactor)
+            if (distance > PushDist*pushfactor)
             {
                 transform.position = _initPos;
                 return;
             }
             Vector3 direction = delta/distance;
-            float distance2 = MaxPush*pushfactor - distance;
+            float distance2 = PushDist*pushfactor - distance;
 
             transform.position = _initPos + direction*distance2;
         }

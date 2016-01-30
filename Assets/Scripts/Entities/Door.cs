@@ -5,6 +5,9 @@ public class Door : MonoBehaviour
 {
     public int RemainingKeys = 0;
 
+    public int XOffset;
+    public int YOffset;
+
     // Use this for initialization
     void Start () {
 	    
