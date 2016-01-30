@@ -7,6 +7,8 @@ using Random = UnityEngine.Random;
 
 public class Pushable : MonoBehaviour
 {
+    public const float PushPadding = 0.2f;
+
     public float MinorMovementDist;
     public float PushDist;
     public float FreezeDist;
@@ -91,25 +93,10 @@ public class Pushable : MonoBehaviour
             }
             Vector3 direction = delta/distance;
             float distance2 = PushDist*pushfactor - distance;
-            transform.position = _initPos + direction * distance2;
 
-            if (transform.localPosition.x < Min.x)
-            {
-                transform.position = new Vector2(transform.position.x + (Min.x - transform.localPosition.x), transform.position.y);
-            }
-            else if (transform.localPosition.x > Max.x)
-            {
-                transform.position = new Vector2(transform.position.x + (Max.x - transform.localPosition.x), transform.position.y);
-            }
-
-            if (transform.localPosition.y < Min.y)
-            {
-                transform.position = new Vector2(transform.position.x, transform.position.y + (Min.y - transform.localPosition.y));
-            }
-            else if (transform.localPosition.y > Max.y)
-            {
-                transform.position = new Vector2(transform.position.x, transform.position.y + (Max.y - transform.localPosition.y));
-            }
+            Debug.DrawRay(_initPos, direction * (distance2 + PushPadding));
+            var hit = Physics2D.Raycast(_initPos, direction, distance2 + PushPadding, ~LayerMask.GetMask("Water", "Ignore Raycast"));
+            transform.position = _initPos + direction * (hit.collider != null ? hit.distance - PushPadding : distance2);
         }
     }
 
