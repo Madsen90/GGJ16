@@ -125,7 +125,6 @@ public class Player : MonoBehaviour
             {
                 minDist = r1.distance > r2.distance ? r1.distance : r2.distance;
             }
-            
             transform.position += (Vector3)xMove * minDist;
         }
 
@@ -146,7 +145,6 @@ public class Player : MonoBehaviour
             {
                 minDist = r1.distance > r2.distance ? r1.distance : r2.distance;
             }
-            
             transform.position += (Vector3)yMove * minDist;
         }
     }
