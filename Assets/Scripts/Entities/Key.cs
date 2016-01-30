@@ -26,8 +26,8 @@ public class Key : MonoBehaviour
     void Update()
     {
         t += Time.deltaTime;
-        var x = Mathf.Cos(t * 2) * Time.deltaTime * 0.4f;
-        var y = Mathf.Cos(t * 1.6f) * Time.deltaTime * 0.4f;
+        var x = Mathf.Cos(t * 2) * Time.deltaTime * 0.1f;
+        var y = Mathf.Cos(t * 1.6f) * Time.deltaTime * 0.1f;
 
         transform.Translate(x, y, 0);
     }
