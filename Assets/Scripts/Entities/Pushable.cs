@@ -118,8 +118,8 @@ public class Pushable : MonoBehaviour
         if (!_frozen)
         {
             _time += Time.deltaTime*3;
-            float x = Mathf.Cos(_time*1.7f)*0.43f * MinorMovementDist;
-            float y = Mathf.Sin(_time)*0.43f * MinorMovementDist;
+            float x = Mathf.Cos(_time*1.7f)*0.23f * MinorMovementDist;
+            float y = Mathf.Sin(_time)*0.23f * MinorMovementDist;
             transform.position += new Vector3(x, y, 0);
         }
     }
