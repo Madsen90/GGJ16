@@ -13,12 +13,12 @@ public class Button : Key
     public override void OnTriggerEnter2D(Collider2D col)
     {
         GetComponent<SpriteRenderer>().sprite = on;
-        Door.RemainingKeys--;
+        Doors.ForEach(door => door.RemainingKeys--);
     }
 
     public void OnTriggerExit2D(Collider2D col)
     {
         GetComponent<SpriteRenderer>().sprite = off;
-        Door.RemainingKeys++;
+        Doors.ForEach(door => door.RemainingKeys++);
     }
 }
