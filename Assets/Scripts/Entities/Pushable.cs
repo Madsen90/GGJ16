@@ -24,20 +24,6 @@ public class Pushable : MonoBehaviour
         _player = GameObject.FindWithTag("Player");
         _initPos = transform.position;
         _time = Random.Range(0, Mathf.PI * 2);
-
-        //float w = 8, h = 6;
-
-        //_limitX = new Vector2(
-        //    Mathf.Floor((_initPos.x + w / 2)/w) * w,
-        //    Mathf.Floor((_initPos.x - w / 2)/w) * w);
-        
-        //_limitY = new Vector2(
-        //    Mathf.Floor((_initPos.y + h / 2)/h) * h,
-        //    Mathf.Floor((_initPos.y - h / 2)/h) * h);
-
-        //Debug.Log(String.Format("Limit X: {0}", _limitX));
-        //Debug.Log(String.Format("Limit Y: {0}", _limitY));
-
 	}
 	
 	// Update is called once per frame
@@ -45,17 +31,24 @@ public class Pushable : MonoBehaviour
         Push(_player.transform,0.5f);
         if (!_player.GetComponent<Player>().HasPushObj)
         {
-            Transform pushObj = GameObject.FindWithTag("PushObj").transform;
-            if (ObjectInRange(pushObj,1f))
+            GameObject pushObj = GameObject.FindWithTag("PushObj");
+            if (pushObj != null)
             {
-                Push(pushObj, 1f);
+                Transform pushObjTrans = pushObj.transform;
+                if (ObjectInRange(pushObjTrans, 1f))
+                {
+                    Push(pushObjTrans, 1f);
+                }
             }
 
         }
         if (!_player.GetComponent<Player>().HasFreezeObj)
         {
             GameObject freezeObj = GameObject.FindWithTag("FreezeObj");
-            Freeze(freezeObj.transform);
+            if (freezeObj != null)
+            {
+                Freeze(freezeObj.transform);
+            }
         }
         else
         {

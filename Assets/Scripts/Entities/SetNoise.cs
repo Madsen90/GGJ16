@@ -3,17 +3,21 @@ using System.Collections;
 
 public class SetNoise : MonoBehaviour
 {
-	public int VolumeTarget;
+	public float VolumeTarget;
 
-    private AudioSource source;
+    private AudioSource ritual;
+    private AudioSource noise;
 
     void Start ()
     {
-        source = GameObject.Find("Camera").GetComponents<AudioSource>()[1];
+        var sources = GameObject.Find("Camera").GetComponents<AudioSource>();
+        ritual = sources[0];
+        noise = sources[1];
     }
 
-    void OnTriggerEnter()
+    void OnTriggerEnter2D()
     {
-        source.volume = Mathf.Max(source.volume, VolumeTarget);
+        noise.volume = Mathf.Max(noise.volume, VolumeTarget);
+        ritual.volume = 1 - noise.volume;
     }
 }
