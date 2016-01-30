@@ -30,16 +30,16 @@ public class Pushable : MonoBehaviour
 	
 	// Update is called once per frame
     private void Update () {
-        Push(_player.transform,0.5f);
+        Push(_player.transform,0.75f);
         if (!_player.GetComponent<Player>().HasPushObj)
         {
             GameObject pushObj = GameObject.FindWithTag("PushObj");
             if (pushObj != null)
             {
                 Transform pushObjTrans = pushObj.transform;
-                if (ObjectInRange(pushObjTrans, 1f))
+                if (ObjectInRange(pushObjTrans, 0.75f))
                 {
-                    Push(pushObjTrans, 1f);
+                    Push(pushObjTrans, 0.75f);
                 }
             }
 
