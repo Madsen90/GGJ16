@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public GameObject PushObj; 
+    public GameObject PushObj;
     public GameObject FreezeObj;
     public bool HasPushObj;
     public bool HasFreezeObj;
@@ -19,37 +19,7 @@ public class Player : MonoBehaviour
     private float rightSideLength, rightMarginSideLength;
     private float topSideLength, topMarginSideLength;
 
-    public Vector2 NorthEast
-    {
-        get
-        {
-            return new Vector2(transform.position.x + extents.x, transform.position.y + extents.y);
-        }
-    }
-
-    public Vector2 SouthEast
-    {
-        get
-        {
-            return new Vector2(transform.position.x + extents.x, transform.position.y - extents.y);
-        }
-    }
-
-    public Vector2 SouthWest
-    {
-        get
-        {
-            return new Vector2(transform.position.x - extents.x, transform.position.y - extents.y);
-        }
-    }
-
-    public Vector2 NorthWest
-    {
-        get
-        {
-            return new Vector2(transform.position.x - extents.x, transform.position.y + extents.y);
-        }
-    }
+    private Animator animator;
 
     // Use this for initialization
     void Start()
@@ -61,6 +31,8 @@ public class Player : MonoBehaviour
 
         rightSideLength = extents.y + Magic;
         rightMarginSideLength = extents.y - Magic;
+
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -75,7 +47,7 @@ public class Player : MonoBehaviour
         if (Input.GetKey(KeyCode.Z) && HasPushObj)
         {
             HasPushObj = false;
-            Instantiate(PushObj,transform.position, Quaternion.identity);
+            Instantiate(PushObj, transform.position, Quaternion.identity);
             PushObj.GetComponent<PushObj>().HasBeenLaidDown = true;
         }
 
@@ -98,11 +70,15 @@ public class Player : MonoBehaviour
         if (Input.GetKey(KeyCode.UpArrow))
             move += Vector2.up;
         if (Input.GetKey(KeyCode.DownArrow))
-
             move += Vector2.down;
 
         // No movement
-        if (move == Vector2.zero) return;
+        if (move == Vector2.zero)
+        {
+            animator.SetBool("IsWalking", false);
+            return;
+        }
+        animator.SetBool("IsWalking", true);
 
         var dist = Speed * Time.deltaTime;
 
